@@ -1,12 +1,10 @@
 import Foundation
 
-import Foundation
-
 let N = Int(readLine()!)!
 let A = readLine()!.split(separator: " ").map { Int($0)! }
 
 var result = [Int](repeating: -1, count: N)
-var stack = [Int]()
+private var stack = [Int]()
 
 private func method17298() {
     for i in 0..<N {
