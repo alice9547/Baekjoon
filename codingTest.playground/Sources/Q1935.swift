@@ -1,9 +1,13 @@
 import Foundation
-import Foundation
-let N = 5
-let input = ["1","2","3","*","+","4","5","/","-"]
-let numArray: [Double] = [1,2,3,4,5]
+
+let N = Int(readLine()!)!
+var input = readLine()!
 var stack = [Double]()
+var numArray: [Double]()
+
+for _ in 0..<N {
+    numArray.append(Double(readLine()!)!)
+}
 
 for i in input {
     
@@ -24,7 +28,7 @@ for i in input {
         let b = stack.removeLast()
         stack.append(b - a)
     default:
-        stack.append(Double(i)!)
+        stack.append(Double("\(i)")!)
     }
 }
 print(String(format: "%.2f", stack[0]))
