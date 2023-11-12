@@ -1,30 +1,41 @@
 import Foundation
-import Foundation
-let N = 5
-let input = ["1","2","3","*","+","4","5","/","-"]
-let numArray: [Double] = [1,2,3,4,5]
-var stack = [Double]()
+
+let input = ["A", "*", "(", "B", "+", "C", ")" ]
+var stack = [String]()
+var result = ""
+let priority = ["(": 0,
+                ")": 0,
+                "+": 2,
+                "-": 2,
+                "/": 1,
+                "*": 1,
+                "": 3]
 
 for i in input {
-    
     switch i {
-    case "*":
-        stack.append(stack.removeLast() * stack.removeLast())
-        
-    case "/":
-        let a = stack.removeLast()
-        let b = stack.removeLast()
-        stack.append(b / a)
-        
-    case "+":
-        stack.append(stack.removeLast() + stack.removeLast())
-        
-    case "-":
-        let a = stack.removeLast()
-        let b = stack.removeLast()
-        stack.append(b - a)
+    case "(":
+        stack.append(i)
+    case ")":
+        while !stack.isEmpty {
+            if priority[stack.last ?? ""]! <= priority[i]! {
+                result += stack.popLast()!
+            }
+        }
+        stack.popLast()
+    case "+", "-", "/", "*":
+        while !stack.isEmpty {
+            if priority[stack.last ?? ""]! <= priority[i]! {
+                result += stack.popLast()!
+            }
+        }
+        stack.append(i)
     default:
-        stack.append(Double(i)!)
+        result += i
     }
 }
-print(String(format: "%.2f", stack[0]))
+
+while !stack.isEmpty {
+    result += stack.popLast()!
+}
+
+print(result)
