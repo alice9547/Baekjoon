@@ -1,47 +1,11 @@
 import Foundation
 
-let input = ["A", "*", "(", "B", "+", "C", ")" ]
-var stack = [String]()
-var result = ""
+let input = "baekjoon"
+var stack = [Int](repeating: 0, count: 26)
 
 for i in input {
-    switch i {
-    case "(":
-        stack.append(i)
-    case ")":
-        while !stack.isEmpty {
-            if stack.last! != "(" {
-                result += stack.popLast()!
-            } else {
-                break
-            }
-        }
-        stack.popLast()
-    case "+", "-":
-        while !stack.isEmpty {
-            if stack.last! != "(" {
-                result += stack.popLast()!
-            } else {
-                break
-            }
-        }
-        stack.append(i)
-    case "/", "*":
-        while !stack.isEmpty {
-            if stack.last! == "*" || stack.last! == "/" {
-                result += stack.popLast()!
-            } else {
-                break
-            }
-        }
-        stack.append(i)
-    default:
-        result += i
-    }
+    let index = i.asciiValue! % 97
+    stack[Int(index)] += 1
 }
-
-while !stack.isEmpty {
-    result += stack.popLast()!
-}
-
-print(result)
+let result = stack.map {String($0)}
+print(result.joined(separator: " "))
