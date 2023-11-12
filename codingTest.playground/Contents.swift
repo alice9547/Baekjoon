@@ -1,15 +1,20 @@
-import Foundation
-
-let input = Array("abca")
-var stack = [Int](repeating: -1, count: 26)
-
-for i in 0..<input.count {
-    let index = input[i].asciiValue! % 97
+while let input = readLine() {
+    var upper = 0
+    var lower = 0
+    var num = 0
+    var space = 0
     
-    if stack[Int(index)] == -1 {
-        stack[Int(index)] = i
+    for i in input {
+        if i.isUppercase {
+            upper += 1
+        } else if i.isLowercase {
+            lower += 1
+        } else if i == " " {
+            space += 1
+        } else {
+            num += 1
+        }
     }
+    
+    print("\(lower) \(upper) \(num) \(space)")
 }
-
-let result = stack.map {String($0)}
-print(result.joined(separator: " "))
