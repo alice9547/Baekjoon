@@ -1,16 +1,17 @@
 let nums = readLine()!.split(separator: " ").map {Int($0)!}
-var result = [Int]()
+let N = nums[1]
 
-for i in nums[0]...nums[1] {
-    var isPrime = true
+var result: [Int] = Array(repeating: 0, count: N + 1)
+for i in 2...N {
+    result[i] = i
+}
 
-    for z in 2..<i {
-        if i % z == 0 {
-            isPrime = false
-        }
+for i in 2...nums[1] {
+    if result[i] == 0 { continue }
+    for k in stride(from: i+i, through: N, by: i) {
+        result[k] = 0
     }
-
-    if isPrime {
-        print(i)
-    }
+}
+result.filter({$0 != 0}).forEach {
+    print($0)
 }
