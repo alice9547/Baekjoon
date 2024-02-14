@@ -2,6 +2,7 @@ let nums = readLine()!.split(separator: " ").map {Int($0)!}
 let N = nums[1]
 
 var result: [Bool] = Array(repeating: true, count: N + 1)
+result[0] = false
 result[1] = false
 
 for i in 2...nums[1] {
@@ -12,8 +13,8 @@ for i in 2...nums[1] {
     }
 }
 
-result.forEach({ index, value in
-    if value {
-        print(index)
+for i in nums[0]...nums[1] {
+    if result[i] {
+        print(i)
     }
-})
+}
