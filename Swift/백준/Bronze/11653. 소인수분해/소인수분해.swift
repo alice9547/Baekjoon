@@ -1,15 +1,12 @@
 let N = Int(readLine()!)!
-var result = [Int]()
+var i = 2
+var n = N
 
-if N != 1 {
-    var n = N
-    for i in 2...N {
-        if n % i == 0 {
-            while n % i == 0 {
-                result.append(i)
-                n /= i
-            }
-        }
+while n != 1 {
+    if n % i != 0 {
+        i += 1
+    } else {
+        print(i)
+        n /= i
     }
 }
-result.forEach({ print($0) })
