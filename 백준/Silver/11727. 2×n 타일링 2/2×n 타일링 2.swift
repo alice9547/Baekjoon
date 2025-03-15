@@ -1,4 +1,4 @@
-var n = Int(readLine()!)!
+let n = Int(readLine()!)!
 var dp = [Int](repeating: 1, count: n+1)
 dp[1] = 3
 
