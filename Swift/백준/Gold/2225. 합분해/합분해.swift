@@ -1,14 +1,15 @@
-let nk = readLine()!.split(separator: " ").map { Int(String($0))! }
-var dp = Array(repeating: Array(repeating: 0, count: nk[0]+1), count: nk[1]+1)
+var nk = readLine()!.split(separator: " ").map {Int($0)!}
+let N = nk[0]
+let K = nk[1]
+var dp = [[Int]](repeating: [Int](repeating: 0, count: N+1), count: K+1)
 
-for k in 1..<nk[1]+1 {
-    for n in 0..<nk[0]+1 {
-        if n == 0 {
-            dp[k][0] = 1
+for i in 1..<K+1 {
+    for j in 0..<N+1 {
+        if j == 0 {
+            dp[i][0] = 1
         } else {
-            dp[k][n] = (dp[k-1][n]+dp[k][n-1]) % 1000000000
+            dp[i][j] = (dp[i][j-1] + dp[i-1][j]) % 1000000000
         }
     }
 }
-
-print(dp[nk[1]][nk[0]])
+print(dp[K][N])
