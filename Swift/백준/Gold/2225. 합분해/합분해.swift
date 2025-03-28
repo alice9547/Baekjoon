@@ -1,15 +1,12 @@
-var nk = readLine()!.split(separator: " ").map {Int($0)!}
-let N = nk[0]
-let K = nk[1]
-var dp = [[Int]](repeating: [Int](repeating: 0, count: N+1), count: K+1)
+let input = readLine()!.split(separator: " ").map {Int($0)!}
+let N = input[0]
+let K = input[1]
+var dp = [[Int]](repeating: [Int](repeating: 1, count: N+1), count: K+2)
 
-for i in 1...K {
-    for j in 0...N {
-        if j == 0 {
-            dp[i][0] = 1
-        } else {
-            dp[i][j] = (dp[i][j-1] + dp[i-1][j]) % 1000000000
-        }
+for i in 1..<N+1 {
+    dp[2][i] = i+1
+    for j in 2..<K+2 {
+        dp[j][i] = dp[j-1][0...i].reduce(0, +)%1000000000
     }
 }
 print(dp[K][N])
