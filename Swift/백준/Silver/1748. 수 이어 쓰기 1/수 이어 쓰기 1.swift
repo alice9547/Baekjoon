@@ -1,16 +1,11 @@
-import Foundation
+let N = Int(readLine()!)!
 
-let N = readLine()!
+var i = 1
 var result = 0
-var n = Int(N)!
-let cnt = N.count
 
-result += (n-tenPow(cnt-1)+1) * cnt
-for i in 1..<N.count {
-    result += (tenPow(i)-tenPow(i-1)) * i
+while i <= N {
+    result += (N-i) + 1
+    i *= 10
 }
+
 print(result)
-
-func tenPow(_ exp: Int) -> Int {
-    return Int(pow(10.0, Double(exp)))
-}
