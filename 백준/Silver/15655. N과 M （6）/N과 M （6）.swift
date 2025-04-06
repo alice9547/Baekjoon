@@ -1,23 +1,17 @@
 let input = readLine()!.split(separator: " ").map {Int($0)!}
 let N = input[0], M = input[1]
 var list = readLine()!.split(separator: " ").map {Int($0)!}.sorted()
-
 var output = ""
-var result = [Int]()
 
-func dfs(_ str: String, _ depth: Int) {
+func dfs(_ now: Int, _ str: String, _ depth: Int) {
     if depth == M {
         output += str + "\n"
         return
     }
     
-    for i in 1...N {
-        if result.last ?? 0 < list[i-1] {
-            result.append(list[i-1])
-            dfs(str + "\(list[i-1]) ", depth + 1)
-            result.removeLast()
-        }
+    for i in now..<N {
+        dfs(i+1, str+"\(list[i]) ", depth+1)
     }
 }
-dfs("", 0)
+dfs(0, "", 0)
 print(output)
