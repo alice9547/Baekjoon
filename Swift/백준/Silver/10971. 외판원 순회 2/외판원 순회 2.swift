@@ -3,31 +3,24 @@ var W = [[Int]]()
 for _ in 0..<N {
     W.append(readLine()!.split(separator: " ").map {Int($0)!})
 }
-var list = [Int]()
+var visit = [Bool](repeating: false, count: N)
 var cost = Int.max
 
-func dfs() {
-    if list.count == N {
-        var sum = 0
-        var canGo = true
-        var back = W[list[N-1]][list[0]]
-        for j in 0..<N-1 {
-            let c = W[list[j]][list[j+1]]
-            if c == 0 {
-                canGo = false
-            }
-            sum += c
-        }
-        canGo && back != 0 ? cost = min(cost, sum+back) : nil
+func dfs(_ start: Int, _ sum: Int, _ digit: Int, _ cur: Int) {
+    if digit == N {
+        if W[cur][start] == 0 { return }
+        cost = min(cost, sum+W[cur][start])
+        return
     }
     
     for i in 0..<N {
-        if !list.contains(i) {
-            list.append(i)
-            dfs()
-            list.popLast()
+        if !visit[i] && W[cur][i] != 0 {
+            visit[i] = true
+            dfs(start, sum + W[cur][i], digit+1, i)
+            visit[i] = false
         }
     }
 }
-dfs()
+visit[0] = true
+dfs(0,0,1,0)
 print(cost)
