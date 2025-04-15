@@ -3,20 +3,19 @@ var S = [[Int]]()
 for _ in 0..<N {
     S.append(readLine()!.split(separator: " ").map {Int($0)!})
 }
-var visit = Array(repeating: false, count: N)
+var visited = Array(repeating: false, count: N)
 var result = Int.max
 
 func dfs(_ start: Int, _ depth: Int) {
     if depth == N/2 {
         var team1 = 0
         var team2 = 0
-        
         for i in 0..<N {
             for j in 0..<N {
-                if visit[i], visit[j] {
+                if visited[i], visited[j] {
                     team1 += S[i][j]
                 }
-                if !visit[i], !visit[j] {
+                if !visited[i], !visited[j] {
                     team2 += S[i][j]
                 }
             }
@@ -25,12 +24,13 @@ func dfs(_ start: Int, _ depth: Int) {
     }
     
     for i in start..<N {
-        if !visit[i] {
-            visit[i] = true
+        if !visited[i] {
+            visited[i] = true
             dfs(i, depth+1)
-            visit[i] = false
+            visited[i] = false
         }
     }
 }
-dfs(0, 0)
+
+dfs(0,0)
 print(result)
