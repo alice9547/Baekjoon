@@ -2,33 +2,26 @@ let NM = readLine()!.split(separator: " ").map {Int($0)!}
 let N = NM[0], M = NM[1]
 var graph = [[Int]](repeating: [], count: N + 1)
 for _ in 0..<M {
-    let list = readLine()!.split(separator: " ").map { Int($0)! }
-    let (a, b) = (list[0], list[1])
-    graph[a].append(b)
-    graph[b].append(a)
+    let n = readLine()!.split(separator: " ").map { Int($0)! }
+    graph[n[0]].append(n[1])
+        graph[n[1]].append(n[0])
 }
 var visit = [Bool](repeating: false, count: N+1)
-var result = Set<Set<Int>>()
+var result = 0
 
-func bfs(_ now: Int) -> Set<Int> {
-    var queue = [now]
-    var list = Set<Int>()
-    var visited = [Bool](repeating: false, count: N+1)
-    visited[now] = true
-    while !queue.isEmpty {
-        let current = queue.removeFirst()
-        list.insert(current)
-        for i in graph[current] {
-            if !visited[i] {
-                queue.append(i)
-                visited[i] = true
-            }
+func dfs(_ now: Int) {
+    visit[now] = true
+    for i in graph[now] {
+        if !visit[i] {
+            dfs(i)
         }
     }
-    return list
 }
 
 for i in 1...N {
-    result.insert(bfs(i))
+    if !visit[i] {
+        result += 1
+        dfs(i)
+    }
 }
-print(result.count)
+print(result)
